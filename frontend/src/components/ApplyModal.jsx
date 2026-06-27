@@ -35,12 +35,12 @@ const ApplyModal = ({ isOpen, onClose, jobId }) => {
     try {
       // Send the FormData to our backend
       await axios.post(
-        `http://localhost:5000/api/applications/apply/${jobId}`,
+        `${import.meta.env.VITE_API_URL}/api/applications/apply/${jobId}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
-            'Content-Type': 'multipart/form-data', // Tell the server a file is coming!
+            'Content-Type': 'multipart/form-data',
           },
         }
       );

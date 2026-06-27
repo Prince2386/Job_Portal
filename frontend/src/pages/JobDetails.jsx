@@ -6,19 +6,19 @@ import { AuthContext } from '../context/AuthContext';
 import ApplyModal from '../components/ApplyModal';
 
 const JobDetails = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
-  
+
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/jobs/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/jobs/${id}`);
         setJob(response.data.data || response.data.job || response.data);
         setLoading(false);
       } catch (error) {
@@ -26,6 +26,7 @@ const JobDetails = () => {
         setLoading(false);
       }
     };
+    // ... rest of your code
 
     fetchJob();
   }, [id]);
@@ -49,32 +50,32 @@ const JobDetails = () => {
         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
         Back to Jobs
       </Link>
-      
+
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
-        
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">{job.title}</h1>
             <p className="text-xl text-slate-400">{job.companyName}</p>
           </div>
-          
+
           <div className="mt-4 md:mt-0">
             {/* Conditional Apply Button and Modal */}
             {user ? (
               <>
-                <button 
-                  onClick={() => setIsModalOpen(true)} 
+                <button
+                  onClick={() => setIsModalOpen(true)}
                   className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-semibold transition-all shadow-lg shadow-blue-500/20"
                 >
                   Apply Now
                 </button>
 
                 {/* The Modal Component (hidden unless isModalOpen is true) */}
-                <ApplyModal 
-                  isOpen={isModalOpen} 
-                  onClose={() => setIsModalOpen(false)} 
-                  jobId={job._id} 
+                <ApplyModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  jobId={job._id}
                 />
               </>
             ) : (
@@ -108,7 +109,7 @@ const JobDetails = () => {
             {job.description}
           </div>
         </div>
-        
+
       </div>
     </div>
   );

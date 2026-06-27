@@ -13,12 +13,12 @@ const Dashboard = () => {
     const fetchMyApplications = async () => {
       try {
         // ---> CHANGED: Added '/me' to the end of the URL! <---
-        const response = await axios.get('http://localhost:5000/api/applications/me', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/applications/me`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        
+
         setApplications(response.data.data || response.data.applications || []);
         setLoading(false);
       } catch (error) {
@@ -49,8 +49,8 @@ const Dashboard = () => {
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center shadow-xl">
           <h3 className="text-xl font-bold text-white mb-2">No applications yet</h3>
           <p className="text-slate-400 mb-6">You haven't applied to any jobs yet. Start exploring!</p>
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             Browse Jobs
@@ -89,9 +89,9 @@ const Dashboard = () => {
                     </td>
                     <td className="p-4 text-right">
                       {app.resume ? (
-                        <a 
-                          href={app.resume} 
-                          target="_blank" 
+                        <a
+                          href={app.resume}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
                         >

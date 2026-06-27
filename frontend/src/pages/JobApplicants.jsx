@@ -13,7 +13,7 @@ const JobApplicants = () => {
   useEffect(() => {
     const fetchApplicants = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/applications/job/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/applications/job/${id}`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
